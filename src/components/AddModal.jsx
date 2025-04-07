@@ -189,19 +189,18 @@ const AddModal = ({ onAddItem, itemToEdit, onUpdateItem }) => {
               {selected && (
                 <>
                   <div className={styles.formGroup}>
-                    <label className={styles.label}>Status</label>
-                    <select
+                    <InputField
+                      label="Status"
+                      type="select"
                       value={status}
                       onChange={(e) => setStatus(e.target.value)}
-                      className={styles.select}
-                    >
-                      <option value="want-to-watch">Want to Watch</option>
-                      <option value="currently-watching">
-                        Currently Watching
-                      </option>
-                      <option value="waiting-for">Waiting For</option>
-                      <option value="completed">Completed</option>
-                    </select>
+                      options={[
+                        { value: "want-to-watch", label: "Want to Watch" },
+                        { value: "currently-watching", label: "Currently Watching" },
+                        { value: "waiting-for", label: "Waiting For" },
+                        { value: "completed", label: "Completed" },
+                      ]}
+                    />
                   </div>
 
                   {(type === "anime" || type === "series") && (

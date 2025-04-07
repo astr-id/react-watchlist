@@ -1,55 +1,27 @@
-@use './variables' as *;
+@use "./variables" as *;
 
 .asyncSearch {
-  margin-bottom: $spacing-medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
 
-  .react-select__control {
-    font-size: $font-size-base;
-    border: $border-width solid $border-color;
-    border-radius: $border-radius;
-    background-color: $background-color;
-    transition: border-color $transition-duration $transition-ease, box-shadow $transition-duration $transition-ease;
+.inputSelect {
+  width: 100%;
+  font-size: var(--font-size-base);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--background-color);
+  transition: border-color var(--transition-duration) var(--transition-ease);
 
-    &:hover {
-      border-color: $primary-hover;
-    }
-
-    &--is-focused {
-      border-color: $primary-color;
-      box-shadow: 0 0 4px rgba($primary-color, 0.5);
-    }
+  &:focus {
+    border-color: var(--hover-pink-color);
+    box-shadow: 0 0 4px rgba(var(--hover-pink-color-rgb), 0.5);
   }
 
-  .react-select__placeholder {
-    color: $text-color;
-    font-size: $font-size-small;
-  }
-
-  .react-select__menu {
-    z-index: 1050;
-    border-radius: $border-radius;
-    background-color: $background-color;
-    box-shadow: $box-shadow;
-  }
-
-  .react-select__option {
-    font-size: $font-size-small;
-    color: $text-color;
-    padding: $spacing-small $spacing-medium;
-    transition: background-color $transition-duration $transition-ease;
-
-    &:hover {
-      background-color: $hover-pink-color;
-    }
-
-    &--is-selected {
-      background-color: $primary-color;
-      color: #fff;
-    }
-  }
-
-  .react-select__single-value {
-    color: $text-color;
-    font-size: $font-size-base;
+  &::placeholder {
+    color: var(--text-color);
+    font-size: var(--font-size-small);
   }
 }

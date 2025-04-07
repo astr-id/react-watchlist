@@ -1,20 +1,20 @@
 @use './variables' as *;
 
 .formGroup {
-  margin-bottom: 20px; // Espacement ajusté pour correspondre au design global
+  margin-bottom: 20px;
 }
 
 .label {
   display: block;
-  font-size: 0.95rem; // Taille légèrement augmentée
-  font-weight: 600; // Poids ajusté pour correspondre au style global
-  margin-bottom: 8px; // Espacement ajusté
+  // font-size: 0.95rem;
+  // font-weight: 600;
+  margin-bottom: 8px;
   color: $text-color;
 }
 
-.input {
+.input, .select {
   width: 100%;
-  padding: 10px 12px; // Espacement interne ajusté
+  padding: 10px 12px;
   font-size: 0.95rem;
   border: 1px solid #ccc;
   border-radius: $border-radius;
@@ -27,6 +27,6 @@
   }
 
   &:hover {
-    border-color: $primary-hover; // Couleur au survol
+    border-color: $primary-hover;
   }
 }
