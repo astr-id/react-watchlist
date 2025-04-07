@@ -5,7 +5,7 @@
 ## Fonctionnalités 🚀
 
 - 📋 **Ajouter à la watchlist** : Ajoutez facilement des animes, séries et films à votre liste.
-- 🖼️ **Afficher des détails** : Accédez à des informations complètes sur chaque élément (titre, image, synopsis, etc.).
+- 🖼️ **Afficher des détails** : Accédez à des informations complètes sur chaque élément (titre, image, date, etc.).
 - 💾 **Stockage local** : Votre liste est sauvegardée dans le **local storage**, donc attention à ne pas perdre vos données en cas de suppression d'effacement des données du navigateur.
 - 🔍 **Recherche facile** : Trouvez rapidement ce que vous cherchez grâce à une fonctionnalité de recherche.
 

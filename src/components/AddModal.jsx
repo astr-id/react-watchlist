@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PlusCircle } from "lucide-react";
 import { toast } from "sonner";
 import styles from "../styles/AddModal.module.scss";
+import InputField from "./InputField";
+import RadioGroup from "./RadioGroup";
+import AsyncSearch from "./AsyncSearch";
 
 const DEFAULT_IMAGES =
   "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
@@ -11,48 +14,48 @@ const AddModal = ({ onAddItem, itemToEdit, onUpdateItem }) => {
 
   const [open, setOpen] = useState(false);
   const [type, setType] = useState(itemToEdit?.type || "anime");
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
   const [selected, setSelected] = useState(itemToEdit || null);
   const [status, setStatus] = useState(itemToEdit?.status || "want-to-watch");
   const [episodesCurrent, setEpisodesCurrent] = useState(
     itemToEdit?.episodes?.current || ""
   );
-  const [season, setSeason] = useState(itemToEdit?.season || ""); // Add season state
-  const disabled = !selected && !itemToEdit && !query;
+  const [season, setSeason] = useState(itemToEdit?.season || "");
+  const disabled = !selected && !itemToEdit;
 
-  useEffect(() => {
-    if (query.length < 3) {
-      setResults([]);
-      return;
-    }
+  const loadOptions = async (inputValue) => {
+    if (inputValue.length < 3) return [];
 
-    const timeout = setTimeout(() => {
+    try {
       if (type === "anime") {
-        fetch(`https://api.jikan.moe/v4/anime?q=${query}`)
-          .then((res) => res.json())
-          .then((data) => setResults(data.data || []))
-          .catch((error) => {
-            console.error("Error fetching anime:", error);
-            toast.error("Failed to fetch anime results.");
-          });
+        const res = await fetch(
+          `https://api.jikan.moe/v4/anime?q=${inputValue}`
+        );
+        const data = await res.json();
+        return data.data.map((item) => ({
+          value: item.mal_id,
+          label: item.title,
+          raw: item,
+        }));
       } else {
-        fetch(
-          `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${query}&type=${
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${inputValue}&type=${
             type === "movie" ? "movie" : "series"
           }`
-        )
-          .then((res) => res.json())
-          .then((data) => setResults(data.Search || []))
-          .catch((error) => {
-            console.error("Error fetching movie/series:", error);
-            toast.error("Failed to fetch movie/series results.");
-          });
+        );
+        const data = await res.json();
+        if (!data.Search) return [];
+        return data.Search.map((item) => ({
+          value: item.imdbID,
+          label: item.Title,
+          raw: item,
+        }));
       }
-    }, 400);
-
-    return () => clearTimeout(timeout);
-  }, [query, type]);
+    } catch (error) {
+      console.error("Error loading options:", error);
+      toast.error("Failed to fetch search results.");
+      return [];
+    }
+  };
 
   const handleSelect = async (item) => {
     if (type === "anime") {
@@ -94,7 +97,7 @@ const AddModal = ({ onAddItem, itemToEdit, onUpdateItem }) => {
       type,
       status,
       currentEpisode: episodesCurrent || "0",
-      season: season || "", // Ensure the season is included
+      season: season || "",
     };
 
     const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
@@ -122,13 +125,11 @@ const AddModal = ({ onAddItem, itemToEdit, onUpdateItem }) => {
   };
 
   const resetForm = () => {
-    setQuery("");
     setSelected(null);
     setStatus("want-to-watch");
     setEpisodesCurrent("");
-    setSeason(""); // Reset season as well
+    setSeason("");
     setType("anime");
-    setResults([]);
   };
 
   return (
@@ -164,49 +165,23 @@ const AddModal = ({ onAddItem, itemToEdit, onUpdateItem }) => {
                 <>
                   <div className={styles.formGroup}>
                     <label className={styles.label}>Select Type</label>
-                    <div className={styles.radioGroup}>
-                      {["anime", "series", "movie"].map((item) => (
-                        <label key={item} className={styles.radioLabel}>
-                          <input
-                            type="radio"
-                            value={item}
-                            checked={type === item}
-                            onChange={() => {
-                              setType(item);
-                              setSelected(null);
-                              setQuery("");
-                              setResults([]);
-                            }}
-                          />
-                          <span>
-                            {item.charAt(0).toUpperCase() + item.slice(1)}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
+                    <RadioGroup
+                      options={["anime", "series", "movie"]}
+                      selectedValue={type}
+                      onChange={(value) => {
+                        setType(value);
+                        setSelected(null);
+                      }}
+                    />
                   </div>
 
                   <div className={styles.formGroup}>
                     <label className={styles.label}>Search Title</label>
-                    <input
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      className={styles.input}
+                    <AsyncSearch
+                      loadOptions={loadOptions}
+                      onSelect={handleSelect}
                       placeholder="Start typing..."
                     />
-                    {results.length > 0 && (
-                      <ul className={styles.searchSuggestions}>
-                        {results.map((item) => (
-                          <li
-                            key={item.mal_id || item.imdbID}
-                            onClick={() => handleSelect(item)}
-                          >
-                            {item.title || item.Title}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
                   </div>
                 </>
               )}
@@ -231,26 +206,20 @@ const AddModal = ({ onAddItem, itemToEdit, onUpdateItem }) => {
 
                   {(type === "anime" || type === "series") && (
                     <>
-                      <div className={styles.formGroup}>
-                        <label className={styles.label}>Current Episode</label>
-                        <input
-                          type="number"
-                          value={episodesCurrent}
-                          onChange={(e) => setEpisodesCurrent(e.target.value)}
-                          className={styles.input}
-                          placeholder="Enter current episode"
-                        />
-                      </div>
-                      <div className={styles.formGroup}>
-                        <label className={styles.label}>Current Season</label>
-                        <input
-                          type="number"
-                          value={season}
-                          onChange={(e) => setSeason(e.target.value)}
-                          className={styles.input}
-                          placeholder="Enter current season"
-                        />
-                      </div>
+                      <InputField
+                        label="Current Episode"
+                        type="number"
+                        value={episodesCurrent}
+                        onChange={(e) => setEpisodesCurrent(e.target.value)}
+                        placeholder="Enter current episode"
+                      />
+                      <InputField
+                        label="Current Season"
+                        type="number"
+                        value={season}
+                        onChange={(e) => setSeason(e.target.value)}
+                        placeholder="Enter current season"
+                      />
                     </>
                   )}
                 </>

@@ -1,25 +1,53 @@
-$text-pink-color: #D05382;
-$border-pink-color: #FFDEE2;
-$background-pink-color: #FFF0F6;
-$icon-pink-color: #FF8BA4;
-$hover-pink-color: #FFE3E8;
+// Couleurs principales
+$primary-color: #FF8BA4; // Couleur principale (rose pastel)
+$primary-hover: #FF6F91; // Couleur au survol (rose plus vif)
+$text-color: #5A5A5A; // Couleur principale du texte (gris doux)
+$background-color: #FFF5F8; // Couleur de fond globale (rose très clair)
+$border-color: #F3DDE4; // Couleur des bordures (rose clair)
 
-$text-blue-color: #7558CD;
-$border-blue-color: #E5DEFF;
-$background-blue-color: #F3F0FF;
-$icon-blue-color: #9876FA;
-$hover-blue-color: #E8E1FF;
+// Couleurs spécifiques
+$text-pink-color: #D05382; // Rose foncé pour les textes
+$border-pink-color: #FFDEE2; // Rose clair pour les bordures
+$background-pink-color: #FFF0F6; // Rose très clair pour les fonds
+$icon-pink-color: #FF8BA4; // Rose pastel pour les icônes
+$hover-pink-color: #FFE3E8; // Rose clair pour les survols
 
-$text-green-color: #2D7749;
-$border-green-color: #BBF7D0;
-$background-green-color: #DCFCE7;
-$icon-green-color: #22C55E;
-$hover-green-color: #BBF7D0;
+$text-blue-color: #7558CD; // Bleu-violet pour les textes
+$border-blue-color: #E5DEFF; // Bleu clair pour les bordures
+$background-blue-color: #F3F0FF; // Bleu très clair pour les fonds
+$icon-blue-color: #9876FA; // Bleu pastel pour les icônes
+$hover-blue-color: #E8E1FF; // Bleu clair pour les survols
 
-$text-orange-color: #CA5C3F;
-$border-orange-color: #FFE2D6;
-$background-orange-color: #FFF0EB;
-$icon-orange-color: #FF8B67;
-$hover-orange-color: #FFE2D6;
+$text-green-color: #2D7749; // Vert foncé pour les textes
+$border-green-color: #BBF7D0; // Vert clair pour les bordures
+$background-green-color: #DCFCE7; // Vert très clair pour les fonds
+$icon-green-color: #22C55E; // Vert vif pour les icônes
+$hover-green-color: #BBF7D0; // Vert clair pour les survols
 
-$border-radius: 1rem;
+$text-orange-color: #CA5C3F; // Orange foncé pour les textes
+$border-orange-color: #FFE2D6; // Orange clair pour les bordures
+$background-orange-color: #FFF0EB; // Orange très clair pour les fonds
+$icon-orange-color: #FF8B67; // Orange pastel pour les icônes
+$hover-orange-color: #FFE2D6; // Orange clair pour les survols
+
+// Typographie
+$font-family: 'Roboto', sans-serif; // Police principale
+$font-size-base: 16px; // Taille de police par défaut
+$font-size-small: 14px; // Taille de police pour les textes secondaires
+$font-size-large: 18px; // Taille de police pour les titres
+
+// Espacements
+$spacing-small: 8px;
+$spacing-medium: 16px;
+$spacing-large: 24px;
+
+// Bordures
+$border-radius: 1rem; // Rayon des bordures globales
+$border-width: 1px;
+
+// Ombres
+$box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.1); // Ombre douce pour les modals et les cartes
+
+// Transitions
+$transition-duration: 0.3s; // Durée des transitions
+$transition-ease: ease-in-out; // Courbe des transitions

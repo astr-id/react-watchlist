@@ -1,0 +1,29 @@
+@use './variables' as *;
+
+.radioGroup {
+  display: flex;
+  gap: 20px; 
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem; 
+  color: $text-color;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  input {
+    margin-right: 8px; // Espacement ajusté
+    accent-color: $primary-color; // Couleur personnalisée pour les boutons radio
+  }
+
+  span {
+    text-transform: capitalize;
+    font-weight: 500; // Ajout d'un poids pour correspondre au style global
+  }
+
+  &:hover {
+    color: $primary-hover; // Changement de couleur au survol
+  }
+}
