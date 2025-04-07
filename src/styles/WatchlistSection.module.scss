@@ -1,0 +1,150 @@
+@use './variables' as *;
+.watchlistSection {
+  padding: 1.5rem;
+  padding-bottom: 4rem;
+
+  .titleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #db2777;
+    }
+    
+  }
+
+  .descriptionText
+  {
+      font-size: 1rem;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+  .searchResults {
+    margin-bottom: 1.5rem;
+
+    h3 {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .emptyState {
+    background-color: rgba(243, 244, 246, 0.6);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+
+    p {
+      color: #6b7280;
+    }
+
+    .addLink {
+      margin-top: 0.5rem;
+      background: none;
+      border: none;
+      text-decoration: underline;
+      font-weight: 500;
+      cursor: pointer;
+
+      &.wantToWatch {
+        color: $text-pink-color;
+      }
+      &.currentlyWatching {
+        color: $text-blue-color;
+      }
+      &.waitingFor {
+        color: $text-orange-color;
+      }
+      &.completed {
+        color: $text-green-color;
+      }
+    }
+  }
+
+  .tabs {
+    display: grid;
+    gap: 2rem;
+
+    .tabsNav {
+      display: flex;
+      gap: 1rem;
+      margin: 2rem 0;
+      background: #efe7e9;
+      padding: 0.5rem;
+      border-radius: 1.5rem;
+
+      .tabBtn {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        background-color: transparent;
+        border: none;
+        border-radius: 1.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: #996677;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+
+          &:hover {
+            background-color: rgba(207, 148, 148, 0.1);
+          }
+
+        &.wantToWatch {
+          background-color: $background-pink-color;
+          color: $text-pink-color;
+          &:hover {
+            background-color: $hover-pink-color;
+          }
+        }
+
+        &.currentlyWatching {
+          background-color: $background-blue-color;
+          color: $text-blue-color;
+          &:hover {
+            background-color: $hover-blue-color;
+          }
+        }
+
+        &.waitingFor {
+          background-color: $background-orange-color;
+          color: $text-orange-color;
+          &:hover {
+            background-color: $hover-orange-color;
+          }
+        }
+
+        &.completed {
+          background-color: $background-green-color;
+          color: $text-green-color;
+          &:hover {
+            background-color: $hover-green-color;
+          }
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .tabContent {
+      margin-top: 1rem;
+    }
+  }
+
+  .cardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
